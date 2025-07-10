@@ -1,0 +1,74 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="cancelar()">
+        <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{ tarea ? 'Editar Tarea' : 'Nueva Tarea' }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="guardar()" [disabled]="form.invalid" strong>
+        <ion-icon slot="icon-only" name="checkmark-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="modal-content">
+  <form [formGroup]="form" (ngSubmit)="guardar()">
+    <ion-list lines="none" class="form-list">
+      <ion-item class="form-item">
+        <ion-label position="floating" class="form-label">Título</ion-label>
+        <ion-input formControlName="titulo" class="form-input"></ion-input>
+      </ion-item>
+      <ion-text
+        color="danger"
+        *ngIf="form.get('titulo')?.touched && form.get('titulo')?.hasError('required')"
+        class="error-message"
+      >
+        El título es obligatorio
+      </ion-text>
+
+      <ion-item class="form-item">
+        <ion-label position="floating" class="form-label"
+          >Descripción</ion-label
+        >
+        <ion-textarea
+          formControlName="descripcion"
+          class="form-textarea"
+          rows="4"
+          autoGrow="true"
+        ></ion-textarea>
+      </ion-item>
+
+      <ion-item class="form-item">
+        <ion-label position="floating" class="form-label">Fecha</ion-label>
+        <ion-datetime
+          formControlName="fecha"
+          presentation="date"
+          display-format="DD/MM/YYYY"
+          class="form-datetime"
+        ></ion-datetime>
+      </ion-item>
+
+      <!-- Solo mostrar la opción de completado al editar -->
+      <ion-item lines="none" class="form-item" *ngIf="isEditing">
+        <ion-label class="form-label">Completado</ion-label>
+        <ion-checkbox
+          slot="start"
+          formControlName="completado"
+          class="form-checkbox"
+        ></ion-checkbox>
+      </ion-item>
+    </ion-list>
+
+    <ion-button
+      expand="block"
+      type="submit"
+      [disabled]="form.invalid"
+      class="submit-button"
+    >
+      {{ isEditing ? 'ACTUALIZAR TAREA' : 'AGREGAR TAREA' }}
+    </ion-button>
+  </form>
+</ion-content>

@@ -1,0 +1,143 @@
+/* Estilos para el toolbar */
+ion-toolbar {
+  --background: #3880ff;
+  --color: white;
+
+  ion-title {
+    font-weight: 500;
+  }
+
+  ion-button {
+    --color: white;
+  }
+}
+
+/* Estilos para el segmento de filtros */
+.custom-segment {
+  padding: 8px;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  ion-segment-button {
+    --indicator-color: var(--ion-color-primary);
+    --color: var(--ion-color-medium);
+    --color-checked: var(--ion-color-primary);
+    min-height: 40px;
+    --padding-top: 8px;
+    --padding-bottom: 8px;
+
+    ion-icon {
+      margin-bottom: 4px;
+      font-size: 20px;
+    }
+
+    ion-label {
+      font-size: 12px;
+      margin-top: 4px;
+    }
+  }
+}
+
+/* Estilos para la lista de tareas */
+.task-list {
+  padding: 8px;
+
+  ion-item {
+    --border-radius: 12px;
+    --padding-start: 12px;
+    --inner-padding-end: 12px;
+    --background: white;
+    --background-activated: #f5f5f5;
+    --background-hover: #f5f5f5;
+    margin-bottom: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+
+    ion-checkbox {
+      margin-right: 12px;
+    }
+
+    .task-content {
+      h2 {
+        font-weight: 500;
+        margin-bottom: 4px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        ion-icon {
+          flex-shrink: 0;
+        }
+      }
+
+      p {
+        color: var(--ion-color-medium);
+        font-size: 14px;
+        margin-top: 0;
+        margin-bottom: 4px;
+      }
+
+      ion-note {
+        display: flex;
+        align-items: center;
+        font-size: 12px;
+        color: var(--ion-color-medium);
+
+        ion-icon {
+          margin-right: 4px;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+
+  .task-completed {
+    opacity: 0.8;
+    background: rgba(var(--ion-color-success-rgb), 0.05);
+
+    h2,
+    p,
+    ion-note {
+      text-decoration: line-through;
+      color: var(--ion-color-medium);
+    }
+  }
+}
+
+/* Estilos para el estado vacío */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  text-align: center;
+  padding: 20px;
+  color: var(--ion-color-medium);
+
+  ion-icon {
+    font-size: 64px;
+    margin-bottom: 16px;
+    color: var(--ion-color-light);
+  }
+
+  h3 {
+    font-weight: 500;
+    margin: 16px 0 8px;
+    color: var(--ion-color-dark);
+  }
+
+  p {
+    margin: 0 0 16px;
+    max-width: 80%;
+  }
+}
+
+/* Estilos para los botones de acción */
+ion-button {
+  --border-radius: 8px;
+
+  ion-icon {
+    font-size: 20px;
+  }
+}

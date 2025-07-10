@@ -1,0 +1,106 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>TareasApp</ion-title>
+    <ion-buttons slot="end">
+      <!-- <ion-button (click)="abrirModal()">
+        <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
+      </ion-button> -->
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-segment
+    [(ngModel)]="filtroActual"
+    (ionChange)="onSegmentChange($event)"
+    class="custom-segment"
+  >
+    <ion-segment-button value="todas">
+      <ion-icon name="list-outline"></ion-icon>
+      <ion-label>Todas</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="pendientes">
+      <ion-icon name="time-outline" color="warning"></ion-icon>
+      <ion-label>Pendientes</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="completadas">
+      <ion-icon name="checkmark-done-outline" color="success"></ion-icon>
+      <ion-label>Completadas</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <!-- Lista de tareas -->
+  <ion-list class="task-list">
+    <ion-item
+      *ngFor="let tarea of tareas$ | async"
+      [class.task-completed]="tarea.completado"
+    >
+      <ion-checkbox
+        slot="start"
+        [(ngModel)]="tarea.completado"
+        (ionChange)="actualizarTarea(tarea.id!, { completado: tarea.completado })"
+        [color]="tarea.completado ? 'success' : 'warning'"
+      ></ion-checkbox>
+
+      <ion-label class="task-content">
+        <h2 [ngClass]="{ 'completado': tarea.completado }">
+          {{ tarea.titulo }}
+          <ion-icon
+            *ngIf="tarea.completado"
+            name="checkmark-circle"
+            color="success"
+            size="small"
+          ></ion-icon>
+          <ion-icon
+            *ngIf="!tarea.completado"
+            name="alert-circle"
+            color="warning"
+            size="small"
+          ></ion-icon>
+        </h2>
+        <p>{{ tarea.descripcion }}</p>
+        <ion-note>
+          <ion-icon name="calendar-outline"></ion-icon>
+          {{ tarea.fecha | date:'mediumDate' }}
+        </ion-note>
+      </ion-label>
+
+      <ion-button fill="clear" slot="end" (click)="abrirModal(tarea)">
+        <ion-icon name="create-outline" color="primary"></ion-icon>
+      </ion-button>
+      <ion-button
+        fill="clear"
+        color="danger"
+        slot="end"
+        (click)="eliminarTarea(tarea.id!)"
+      >
+        <ion-icon name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+  <!-- Mensaje cuando no hay tareas -->
+  <div *ngIf="(tareas$ | async)?.length === 0" class="empty-state">
+    <ion-icon name="clipboard-outline" size="large"></ion-icon>
+    <h3>No hay tareas {{ filtroActual === 'todas' ? '' : filtroActual }}</h3>
+    <p *ngIf="filtroActual === 'todas'">¡Agrega tu primera tarea!</p>
+    <p *ngIf="filtroActual === 'pendientes'">
+      ¡Todas las tareas están completadas!
+    </p>
+    <p *ngIf="filtroActual === 'completadas'">No hay tareas completadas aún.</p>
+    <ion-button
+      *ngIf="filtroActual === 'todas'"
+      color="primary"
+      (click)="abrirModal()"
+    >
+      <ion-icon slot="start" name="add"></ion-icon>
+      Crear Tarea
+    </ion-button>
+  </div>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="abrirModal()" color="primary">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
