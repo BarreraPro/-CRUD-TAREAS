@@ -31,8 +31,6 @@
 
   <!-- Lista de tareas -->
   <ion-list class="task-list">
-    <!-- TODO: Agregar logica para implentarr un contador de tareas-->
-
     <ion-item
       *ngFor="let tarea of tareas$ | async"
       [class.task-completed]="tarea.completado"
