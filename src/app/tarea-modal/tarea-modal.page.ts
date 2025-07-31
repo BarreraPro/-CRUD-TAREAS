@@ -20,7 +20,7 @@ export class TareaModalPage implements OnInit {
     private alertCtrl: AlertController
   ) {
     this.form = this.fb.group({
-      titulo: ['', Validators.required],
+      titulo: ['', [Validators.required, Validators.minLength(3)]],
       descripcion: [''],
       fecha: ['', Validators.required],
       completado: [false],
