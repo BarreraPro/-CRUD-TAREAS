@@ -14,6 +14,7 @@
   </ion-toolbar>
 </ion-header>
 
+<!-- todo: agegar validaciones al titulo   -->
 <ion-content class="modal-content">
   <form [formGroup]="form" (ngSubmit)="guardar()">
     <ion-list lines="none" class="form-list">
@@ -28,7 +29,13 @@
       >
         El título es obligatorio
       </ion-text>
-
+      <ion-text
+        color="danger"
+        *ngIf="form.get('titulo')?.touched && form.get('titulo')?.hasError('minlength')"
+        class="error-message"
+      >
+        El título debe tener al menos 3 caracteres.
+      </ion-text>
       <ion-item class="form-item">
         <ion-label position="floating" class="form-label"
           >Descripción</ion-label
