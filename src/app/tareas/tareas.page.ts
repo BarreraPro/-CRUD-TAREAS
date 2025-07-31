@@ -21,6 +21,10 @@ export class TareasPage implements OnInit, ViewWillEnter {
   tareasSub!: Subscription;
   filtroActual: FiltroTarea = 'todas';
 
+  // Contadores nuevos
+  tareasCompletadas: number = 0;
+  tareasPendientes: number = 0;
+
   constructor(
     private tareaService: TareaService,
     private modalCtrl: ModalController,
@@ -35,7 +39,6 @@ export class TareasPage implements OnInit, ViewWillEnter {
   }
 
   aplicarFiltro(filtro: FiltroTarea | string | undefined) {
-    // Validar que el filtro sea válido
     if (
       filtro === 'todas' ||
       filtro === 'pendientes' ||
@@ -43,6 +46,15 @@ export class TareasPage implements OnInit, ViewWillEnter {
     ) {
       this.filtroActual = filtro;
       this.tareas$ = this.tareaService.getTareasFiltradas(filtro);
+
+      if (this.tareasSub) {
+        this.tareasSub.unsubscribe();
+      }
+
+      this.tareasSub = this.tareas$.subscribe((tareas) => {
+        this.tareasCompletadas = tareas.filter((t) => t.completado).length;
+        this.tareasPendientes = tareas.filter((t) => !t.completado).length;
+      });
     }
   }
 

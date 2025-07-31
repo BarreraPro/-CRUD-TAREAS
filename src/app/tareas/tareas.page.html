@@ -13,6 +13,11 @@
   <ion-card *ngIf="(tareas$ | async) as tareas">
     <ion-card-header>
       <ion-card-title>Total de tareas: {{ tareas.length }}</ion-card-title>
+
+      <ion-card-subtitle>
+        Completadas: {{ tareasCompletadas }} | Pendientes: {{ tareasPendientes
+        }}
+      </ion-card-subtitle>
     </ion-card-header>
   </ion-card>
 
@@ -67,7 +72,7 @@
         <p>{{ tarea.descripcion }}</p>
         <ion-note>
           <ion-icon name="calendar-outline"></ion-icon>
-          {{ tarea.fecha | date:'mediumDate' }}
+          {{ tarea.fecha | date:'dd/MM/yyyy' }}
         </ion-note>
       </ion-label>
 
